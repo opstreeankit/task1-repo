@@ -1,4 +1,3 @@
-```groovy id="sd1vkl"
 package org.devops
 
 class DeployManager implements Serializable {
