@@ -1,4 +1,4 @@
-```groovy
+```groovy id="sd1vkl"
 package org.devops
 
 class DeployManager implements Serializable {
@@ -14,6 +14,7 @@ class DeployManager implements Serializable {
     }
 
     def validate() {
+
         script.echo "===== VALIDATION ====="
 
         script.sh """
@@ -36,18 +37,24 @@ class DeployManager implements Serializable {
 
             script.sh """
                 echo "Deploying using Rolling Deployment to ${env}"
+                sleep 3
+                echo "Rolling deployment completed"
             """
 
         } else if (strategy == "bluegreen") {
 
             script.sh """
                 echo "Deploying using Blue-Green Deployment to ${env}"
+                sleep 3
+                echo "Blue-Green deployment completed"
             """
 
         } else if (strategy == "canary") {
 
             script.sh """
                 echo "Deploying using Canary Deployment to ${env}"
+                sleep 3
+                echo "Canary deployment completed"
             """
         }
     }
@@ -70,10 +77,18 @@ class DeployManager implements Serializable {
         script.sh """
             cd ${script.env.WORKSPACE}
 
-            echo "Rollback initiated for ${env}"
-            echo "Reverting deployment..."
+            echo "Rollback initiated for environment: ${env}"
+            echo "Current workspace: ${script.env.WORKSPACE}"
 
-            sleep 3
+            sleep 2
+
+            echo "Stopping current deployment..."
+
+            sleep 2
+
+            echo "Restoring previous stable version..."
+
+            sleep 2
 
             echo "Rollback completed successfully"
         """
